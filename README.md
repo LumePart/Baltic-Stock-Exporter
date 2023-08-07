@@ -42,7 +42,7 @@ To run the exporter, you need to:
 2. Give the right permissions to the program and move the release to /usr/bin/prometheus-balticstock-exporter:
 
 ```
-sudo chown root:root && sudo chmod +x ./prometheus-balticstock-exporter
+sudo chown root:root ./prometheus-balticstock-exporter && sudo chmod +x ./prometheus-balticstock-exporter
 sudo mv ./prometheus-balticstock-exporter /usr/bin/prometheus-balticstock-exporter
 ```
 3. Make a cron job so it executes on market open time (program will automatically exit on market close)
