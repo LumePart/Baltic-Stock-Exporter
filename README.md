@@ -64,8 +64,9 @@ Copy this to the last line:
     static_configs:
       - targets : ['localhost:33171']
 ```
-5. Connect grafana with prometheus
 **PS! It isn't recommended to set the scrape_interval lower than 1m, because NASDAQ Baltic updates its data every minute**
+
+5. Connect grafana with prometheus
 
 ## Use Cases
 Here are a couple of use cases, which the exporter can accomplish:
