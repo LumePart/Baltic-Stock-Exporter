@@ -37,7 +37,7 @@ Though some basic Linux knowledgment is beneficial to set up the whole environme
 
 To run the exporter, you need to:
 
-1. Download the [latest release](https://github.com/LumePart/Baltic-Stock-Exporter/releases/new)
+1. Download the [latest release](https://github.com/LumePart/Baltic-Stock-Exporter/releases/latest)
 
 2. Give the right permissions to the program and move the release to /usr/bin/prometheus-balticstock-exporter:
 
