@@ -44,9 +44,9 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 
     t := time.Now().In(loc).Add(-15 * time.Minute)
     stockPrice := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockPriceMetric, prometheus.GaugeValue, price, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockTrades := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTradeMetric, prometheus.GaugeValue, trades, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockVolume := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockVolumeMetric, prometheus.GaugeValue, volume, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockTurnover := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTurnoverMetric, prometheus.GaugeValue, turnover, row[0], row[1], row[4], row[18], row[19], row[5]))
+	stockTrades := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTradeMetric, prometheus.CounterValue, trades, row[0], row[1], row[4], row[18], row[19], row[5]))
+	stockVolume := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockVolumeMetric, prometheus.CounterValue, volume, row[0], row[1], row[4], row[18], row[19], row[5]))
+	stockTurnover := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTurnoverMetric, prometheus.CounterValue, turnover, row[0], row[1], row[4], row[18], row[19], row[5]))
 
 
     ch <- stockPrice
@@ -54,7 +54,6 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- stockVolume
 	ch <- stockTurnover
 	}
-	fmt.Println("Collected..")
 }
 
 func regStocks()  *CustomCollector { // Registers stock metrics

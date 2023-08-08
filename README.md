@@ -21,11 +21,16 @@ Though some basic Linux knowledgment is beneficial to set up the whole environme
 ## Features
 
 - Automated collection of NASDAQ Baltic stocks
+- Collects stock metrics about its:
+  - Price
+  - Trades
+  - Volume
+  - Turnover 
+
 - Supports all lists
-- Publishing of metrics to Prometheus for storage and retrieval (view sample_metrics.txt to see what kind of data it collects)
 - Seamless integration with Grafana for data visualization and graphing via PromQL
 - Works only on market open time, to avoid redundant scraping (holidays not implemented yet)
-- 15 minute report delay is accounted for in the program, so metric collecting starts and closes 15 min after real open/close time
+- 15 minute report delay is accounted for in the program, so metrics will get pushed with a custom timestamp
 
 ---
 
