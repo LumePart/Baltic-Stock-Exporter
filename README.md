@@ -3,7 +3,9 @@
 *Aggregate and publish NASDAQ Baltic stock metrics to Prometheus, enabling visualization and graphing in Grafana.*
 
 ---
-<img src="assets/sample_dashboard.png" width="600" height="300"/>
+<p align="center">
+  <img width="650" height="350" src="assets/sample_dashboard.png" alt="Sample dashboard in grafana">
+</p>
 
 
 ## Introduction
