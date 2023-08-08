@@ -3,10 +3,12 @@
 *Aggregate and publish NASDAQ Baltic stock metrics to Prometheus, enabling visualization and graphing in Grafana.*
 
 ---
+<img src="assets/sample_dashboard.png" width="300" height="300"/>
+
 
 ## Introduction
 
-Baltic Stock Exporter is a program written is Go that collects stock metrics from NASDAQ Baltic and publishes them to Prometheus. This data can then be visualized and graphed in Grafana, allowing you to monitor and analyze the performance of various stocks.
+Baltic Stock Exporter is a program written in Go that collects stock metrics from NASDAQ Baltic and publishes them to Prometheus. This data can then be visualized and graphed in Grafana, allowing you to monitor and analyze the performance of various stocks.
 
 The exporter is designed to be easy to set up and use, making it a valuable tool for investors, traders, and anyone interested in tracking the Baltic stock market.
 Though some basic Linux knowledgment is beneficial to set up the whole environment.
@@ -18,6 +20,7 @@ Though some basic Linux knowledgment is beneficial to set up the whole environme
 ## Features
 
 - Automated collection of NASDAQ Baltic stocks
+- Supports all lists
 - Publishing of metrics to Prometheus for storage and retrieval (view sample_metrics.txt to see what kind of data it collects)
 - Seamless integration with Grafana for data visualization and graphing via PromQL
 - Works only on market open time, to avoid redundant scraping (holidays not implemented yet)
