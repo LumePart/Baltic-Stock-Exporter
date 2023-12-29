@@ -1,4 +1,4 @@
-stock_price{industry="Industrials", instance="xx.xxx.x.xxx:33171", job="stocks", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 2.97
-stock_trades{industry="Industrials", instance="xx.xxx.x.xxx:33171", job="stocks", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 3
-stock_volume{industry="Industrials", instance="xx.xxx.x.xxx:33171", job="stocks", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 102
-stock_turnover{industry="Industrials", instance="xx.xxx.x.xxx:33171", job="stocks", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 303
+stock_price{industry="Industrials", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 2.97
+stock_trades{industry="Industrials", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 3
+stock_volume{industry="Industrials", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 102
+stock_turnover{industry="Industrials", marketplace="TLN", name="Airobot Technologies", segment="First North Baltic Share List", supersector="Construction and Materials", ticker="AIR"} 303

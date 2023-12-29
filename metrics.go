@@ -37,16 +37,24 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 	data := readAllStocks()
 
 	for _, row := range data[1:] {
+		var industry string
+		var superSector string
+		
 		price, _ := strconv.ParseFloat(row[11], 64)
 		trades, _ := strconv.ParseFloat(row[15], 64)
 		volume, _ := strconv.ParseFloat(row[16], 64)
 		turnover, _ := strconv.ParseFloat(row[17], 64)
 
+		if len(row) == 20 { // Some companies might be missing Industry and Supersector
+			industry = row[18]
+			superSector = row[19]
+		}
+
     t := time.Now().In(loc).Add(-15 * time.Minute)
-    stockPrice := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockPriceMetric, prometheus.GaugeValue, price, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockTrades := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTradeMetric, prometheus.CounterValue, trades, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockVolume := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockVolumeMetric, prometheus.CounterValue, volume, row[0], row[1], row[4], row[18], row[19], row[5]))
-	stockTurnover := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTurnoverMetric, prometheus.CounterValue, turnover, row[0], row[1], row[4], row[18], row[19], row[5]))
+    stockPrice := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockPriceMetric, prometheus.GaugeValue, price, row[0], row[1], row[4], industry, superSector, row[5]))
+	stockTrades := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTradeMetric, prometheus.CounterValue, trades, row[0], row[1], row[4], industry, superSector, row[5]))
+	stockVolume := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockVolumeMetric, prometheus.CounterValue, volume, row[0], row[1], row[4], industry, superSector, row[5]))
+	stockTurnover := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockTurnoverMetric, prometheus.CounterValue, turnover, row[0], row[1], row[4], industry, superSector, row[5]))
 
 
     ch <- stockPrice
