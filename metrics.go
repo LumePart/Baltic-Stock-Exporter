@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"log"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -29,7 +30,7 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 
 	loc, err := time.LoadLocation("Europe/Tallinn") // Load timezone in the baltics
 	if err != nil {
-		fmt.Println("Failed to load location:" + err.Error())
+		log.Printf("failed to load location: %s", err)
 	}
 
 	checkTime(c, loc)
@@ -37,18 +38,17 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 	data := readAllStocks()
 
 	for _, row := range data[1:] {
-		var industry string
-		var superSector string
+
+		if len(row) != 20 { // Ignore companies that have don't have industry and supersector defined
+			continue
+		}
 		
+		industry := row[18]
+		superSector := row[19]
 		price, _ := strconv.ParseFloat(row[11], 64)
 		trades, _ := strconv.ParseFloat(row[15], 64)
 		volume, _ := strconv.ParseFloat(row[16], 64)
 		turnover, _ := strconv.ParseFloat(row[17], 64)
-
-		if len(row) == 20 { // Some companies might be missing Industry and Supersector
-			industry = row[18]
-			superSector = row[19]
-		}
 
     t := time.Now().In(loc).Add(-15 * time.Minute)
     stockPrice := prometheus.NewMetricWithTimestamp(t, prometheus.MustNewConstMetric(c.stockPriceMetric, prometheus.GaugeValue, price, row[0], row[1], row[4], industry, superSector, row[5]))
