@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
-	"io"
 
 	"github.com/xuri/excelize/v2"
 
@@ -17,35 +18,34 @@ import (
 var prom_reg *prometheus.Registry
 
 
-func downloadFile(url string, localFilePath string) error {
+func downloadFile(url string, localFilePath string) {
 	response, err := http.Get(url)
 	if err != nil {
-		return err
+		log.Fatalf("failed getting response from website: %s", err.Error())
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return fmt.Errorf("failed to download file: %s", response.Status)
+		log.Fatalf("failed to download file: %s", response.Status)
 	}
 
 	file, err := os.Create(localFilePath)
 	if err != nil {
-		return err
+		log.Fatalf("failed to create file: %s", err.Error())
 	}
 	defer file.Close()
 
 	_, err = io.Copy(file, response.Body)
 	if err != nil {
-		return err
+		log.Fatalf("failed to copy response to file: %s", err.Error())
 	}
-
-	return nil
 }
 
 func readAllStocks() [][]string { // Reads an Excel file named and returns a 2D string slice representing the "Shares" sheet data.
 	stock_url := "https://nasdaqbaltic.com/statistics/en/shares?download=1"
 	file_path := "/tmp/shares.xlsx"
 	downloadFile(stock_url,file_path)
+
 
 	f, err := excelize.OpenFile(file_path)
     if err != nil {
@@ -90,5 +90,9 @@ func main() {
 	register(collect)
 
 	http.Handle("/metrics", promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{}))
-	http.ListenAndServe(":33171", nil)
+
+	err := http.ListenAndServe(":33171", nil)
+	if err != nil {
+		log.Fatalf("failed to start http server: %s", err.Error())
+	}
 }
