@@ -32,8 +32,9 @@ func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 	if err != nil {
 		log.Printf("failed to load location: %s", err)
 	}
-
-	checkTime(c, loc)
+	if !daemon { // if not run as daemon, check market closing time
+		checkTime(c, loc)
+	}
 	
 	data := readAllStocks()
 

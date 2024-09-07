@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"flag"
 
 	"github.com/xuri/excelize/v2"
 
@@ -16,7 +17,7 @@ import (
 
 
 var prom_reg *prometheus.Registry
-
+var daemon bool
 
 func downloadFile(url string, localFilePath string) {
 	response, err := http.Get(url)
@@ -74,6 +75,15 @@ func getStockLabels(row []string) []string { // Extracts specific fields from a 
 }
 
 func main() {
+
+	flag.Bool("d", true, "run exporter as a service, scrapes data 24/7")
+	flag.Parse()
+
+	daemon = flag.NFlag() == 1
+	if daemon {
+		fmt.Println("running exporter as service")
+	}
+
 	prom_reg = prometheus.NewRegistry()
 	stocks := regStocks()
 
