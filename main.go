@@ -16,7 +16,7 @@ import (
 )
 
 
-var prom_reg *prometheus.Registry
+var promReg *prometheus.Registry
 var daemon bool
 
 func downloadFile(url string, localFilePath string) {
@@ -84,11 +84,11 @@ func main() {
 		fmt.Println("running exporter as service")
 	}
 
-	prom_reg = prometheus.NewRegistry()
+	promReg = prometheus.NewRegistry()
 	stocks := regStocks()
 
-	prometheus.DefaultRegisterer = prom_reg
-	prometheus.DefaultGatherer = prom_reg
+	prometheus.DefaultRegisterer = promReg
+	prometheus.DefaultGatherer = promReg
 
 
 	collect := &CustomCollector{

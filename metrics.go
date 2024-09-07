@@ -106,7 +106,7 @@ func checkTime(c prometheus.Collector, loc *time.Location) {
 
 	// Compare current time with the target time
 	if currentTime.After(targetTime) || currentTime.Weekday() == time.Sunday || currentTime.Weekday() == time.Saturday  { // If the current time in the baltics is later than market close time, exit the program
-		prom_reg.Unregister(c)
+		promReg.Unregister(c)
 		fmt.Println("Metrics unregistered.. Exiting..")
 		os.Exit(0)
 	}
