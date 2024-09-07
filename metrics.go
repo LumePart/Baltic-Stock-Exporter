@@ -28,11 +28,12 @@ func (c *CustomCollector) Describe(ch chan<- *prometheus.Desc) {
 
 func (c *CustomCollector) Collect(ch chan<- prometheus.Metric) {
 
-	loc, err := time.LoadLocation("Europe/Tallinn") // Load timezone in the baltics
-	if err != nil {
-		log.Printf("failed to load location: %s", err)
-	}
 	if !daemon { // if not run as daemon, check market closing time
+		loc, err := time.LoadLocation("Europe/Tallinn") // Load timezone in the baltics
+		if err != nil {
+			log.Printf("failed to load location: %s", err)
+		}
+		
 		checkTime(c, loc)
 	}
 	
